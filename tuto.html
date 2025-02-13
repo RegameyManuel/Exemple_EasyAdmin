@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>1&period; Installation du bundle</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h2 id="1-installation-du-bundle">1. Installation du bundle</h2>
+<p>Dans votre projet Symfony 6.4, commencez par installer EasyAdmin :</p>
+<pre><code class="language-bash">composer require easycorp/easyadmin-bundle
+</code></pre>
+<p>Cela va ajouter le bundle à votre projet et, grâce à la flexibilité de Symfony Flex, l’enregistrer automatiquement dans le fichier <code>config/bundles.php</code>.</p>
+<hr>
+<h2 id="2-configuration-des-routes">2. Configuration des routes</h2>
+<p>Si vous utilisez un <strong>Dashboard</strong> (la manière recommandée d’utiliser EasyAdmin 4), vous aurez un <code>DashboardController</code> (ex. <code>App\Controller\Admin\DashboardController</code>).<br>
+Pour que Symfony puisse acheminer correctement les requêtes vers l’interface d’administration, vous devez définir la route de votre tableau de bord (dashboard) dans un fichier de routes.</p>
+<p>Par exemple, dans <code>config/routes/admin.yaml</code> :</p>
+<pre><code class="language-yaml"><span class="hljs-attr">admin:</span>
+  <span class="hljs-attr">path:</span> <span class="hljs-string">/admin</span>
+  <span class="hljs-attr">controller:</span> <span class="hljs-string">App\Controller\Admin\DashboardController::index</span>
+</code></pre>
+<blockquote>
+<p><strong>Remarque</strong> : Vous pouvez nommer et structurer votre fichier de routes comme vous le souhaitez, tant que vous déclarez la route pointant vers votre dashboard EasyAdmin.</p>
+</blockquote>
+<hr>
+<h2 id="3-création-du-dashboardcontroller">3. Création du DashboardController</h2>
+<p>Créez un contrôleur qui va servir de tableau de bord principal. Vous pouvez le générer avec la commande :</p>
+<pre><code class="language-bash">php bin/console make:controller --no-template
+</code></pre>
+<p>Puis éditez ce fichier pour qu’il ressemble à quelque chose comme :</p>
+<pre><code class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">App</span>\<span class="hljs-title class_">Controller</span>\<span class="hljs-title class_">Admin</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">AbstractDashboardController</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">HttpFoundation</span>\<span class="hljs-title">Response</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Symfony</span>\<span class="hljs-title">Component</span>\<span class="hljs-title">Routing</span>\<span class="hljs-title">Annotation</span>\<span class="hljs-title">Route</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractDashboardController</span>
+</span>{
+    <span class="hljs-meta">#[Route</span>(<span class="hljs-string">&#x27;/admin&#x27;</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;admin&#x27;</span>)<span class="hljs-meta">]</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">index</span>(<span class="hljs-params"></span>): <span class="hljs-title">Response</span>
+    </span>{
+        <span class="hljs-comment">// Redirigez vers une page ou un CRUD particulier, ou bien affichez un template</span>
+        <span class="hljs-comment">// De manière classique, on redirige vers un CRUD d&#x27;entité</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">redirect</span>(<span class="hljs-variable">$this</span>-&gt;<span class="hljs-title function_ invoke__">generateUrl</span>(<span class="hljs-string">&#x27;...&#x27;</span>));
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configureDashboard</span>(<span class="hljs-params"></span>): \<span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Config</span>\<span class="hljs-title">Dashboard</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">\EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard</span>::<span class="hljs-keyword">new</span>()
+            -&gt;<span class="hljs-title function_ invoke__">setTitle</span>(<span class="hljs-string">&#x27;Mon Administration&#x27;</span>)
+        ;
+    }
+
+    <span class="hljs-comment">// Vous pouvez ajouter d&#x27;autres méthodes de configuration pour les menus, etc.</span>
+}
+</code></pre>
+<blockquote>
+<p><strong>Note</strong> : Il existe d’autres méthodes pour configurer le Dashboard (menus, thèmes, etc.). Pour plus de détails, consultez la <a href="https://symfony.com/bundles/EasyAdminBundle/current/index.html">documentation officielle EasyAdmin</a>.</p>
+</blockquote>
+<hr>
+<h2 id="4-création-des-crud-controllers">4. Création des CRUD Controllers</h2>
+<p>EasyAdmin utilise des contrôleurs spécifiques (ex. <code>ProductCrudController</code>, <code>UserCrudController</code>, etc.) pour gérer le CRUD de vos entités.<br>
+Vous pouvez les créer de façon manuelle ou vous appuyer sur les commandes <code>make:admin:crud</code> (si vous avez installé le <strong>Maker Bundle</strong> spécifique d’EasyAdmin, lorsqu’il est disponible). Sinon, vous pouvez créer un contrôleur CRUD à la main :</p>
+<pre><code class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title class_">App</span>\<span class="hljs-title class_">Controller</span>\<span class="hljs-title class_">Admin</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Entity</span>\<span class="hljs-title">Product</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">AbstractCrudController</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Config</span>\<span class="hljs-title">Fields</span>\<span class="hljs-title">TextField</span>; <span class="hljs-comment">// Exemple</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Config</span>\<span class="hljs-title">Fields</span>\<span class="hljs-title">IdField</span>;   <span class="hljs-comment">// Exemple</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductCrudController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractCrudController</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getEntityFqcn</span>(<span class="hljs-params"></span>): <span class="hljs-title">string</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Product</span>::<span class="hljs-variable language_">class</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configureFields</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$pageName</span></span>): <span class="hljs-title">iterable</span>
+    </span>{
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-title class_">IdField</span>::<span class="hljs-keyword">new</span>(<span class="hljs-string">&#x27;id&#x27;</span>)
+                -&gt;<span class="hljs-title function_ invoke__">hideOnForm</span>(),         <span class="hljs-comment">// Masque l’ID dans le formulaire</span>
+            <span class="hljs-title class_">TextField</span>::<span class="hljs-keyword">new</span>(<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;Nom du produit&#x27;</span>),
+            <span class="hljs-comment">// Ajoutez les champs selon vos propriétés d’entité</span>
+        ];
+    }
+}
+</code></pre>
+<p>Ensuite, n’oubliez pas de déclarer ce CRUD Controller dans votre <code>DashboardController</code> pour qu’il soit accessible depuis le menu EasyAdmin :</p>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Controller</span>\<span class="hljs-title">Admin</span>\<span class="hljs-title">ProductCrudController</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">EasyCorp</span>\<span class="hljs-title">Bundle</span>\<span class="hljs-title">EasyAdminBundle</span>\<span class="hljs-title">Config</span>\<span class="hljs-title">MenuItem</span>;
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configureMenuItems</span>(<span class="hljs-params"></span>): <span class="hljs-title">iterable</span>
+</span>{
+    <span class="hljs-keyword">return</span> [
+        <span class="hljs-title class_">MenuItem</span>::<span class="hljs-title function_ invoke__">linkToDashboard</span>(<span class="hljs-string">&#x27;Dashboard&#x27;</span>, <span class="hljs-string">&#x27;fa fa-home&#x27;</span>),
+        <span class="hljs-title class_">MenuItem</span>::<span class="hljs-title function_ invoke__">linkToCrud</span>(<span class="hljs-string">&#x27;Produits&#x27;</span>, <span class="hljs-string">&#x27;fas fa-box&#x27;</span>, <span class="hljs-title class_">Product</span>::<span class="hljs-variable language_">class</span>)
+            -&gt;<span class="hljs-title function_ invoke__">setController</span>(<span class="hljs-title class_">ProductCrudController</span>::<span class="hljs-variable language_">class</span>),
+        <span class="hljs-comment">// ...</span>
+    ];
+}
+</code></pre>
+<hr>
+<h2 id="5-vérifier-le-bon-fonctionnement">5. Vérifier le bon fonctionnement</h2>
+<ul>
+<li>
+<p>Lancez votre serveur Symfony :</p>
+<pre><code class="language-bash">symfony serve
+</code></pre>
+<p>(ou <code>php -S 127.0.0.1:8000 -t public</code> si vous utilisez le serveur PHP interne)</p>
+</li>
+<li>
+<p>Accédez à l’URL <strong><code>/admin</code></strong> (ou l’URL définie dans vos routes) dans votre navigateur.</p>
+</li>
+<li>
+<p>Vous devriez voir le dashboard EasyAdmin et pouvoir naviguer jusqu’à vos entités pour les gérer (list, edit, create, etc.).</p>
+</li>
+</ul>
+<hr>
+<h2 id="6-aller-plus-loin--personnalisation">6. Aller plus loin : personnalisation</h2>
+<p>EasyAdmin permet de nombreuses personnalisations :</p>
+<ol>
+<li><strong>Configuration des champs</strong> : vous pouvez définir les champs, leur label, leur type, l’ordre, les conditions d’affichage, etc.</li>
+<li><strong>Actions personnalisées</strong> : vous pouvez ajouter ou modifier des actions (boutons, actions massives, etc.).</li>
+<li><strong>Role-based access</strong> (sécurité) : vous pouvez conditionner l’accès à certaines sections de l’administration en fonction des rôles.</li>
+<li><strong>Théming</strong> : vous pouvez personnaliser (dans une certaine limite) l’apparence en adaptant vos assets ou en surchargeant les templates.</li>
+</ol>
+<p>Toutes ces personnalisations sont documentées sur le site officiel :<br>
+<a href="https://symfony.com/bundles/EasyAdminBundle/current/index.html"><strong>Documentation EasyAdmin</strong></a></p>
+<hr>
+<h2 id="récapitulatif">Récapitulatif</h2>
+<ol>
+<li><strong>Installer</strong> : <code>composer require easycorp/easyadmin-bundle</code></li>
+<li><strong>Configurer la route</strong> vers votre Dashboard.</li>
+<li><strong>Créer le DashboardController</strong> (héritant de <code>AbstractDashboardController</code>).</li>
+<li><strong>Créer les CRUD controllers</strong> (héritant de <code>AbstractCrudController</code>) pour chacune de vos entités à gérer.</li>
+<li><strong>Déclarer vos CRUD controllers</strong> dans votre <code>DashboardController</code> pour qu’ils apparaissent dans les menus (ou y accéder par URL directement).</li>
+<li><strong>Lancer votre serveur</strong> et accéder à votre interface d’administration via <code>/admin</code>.</li>
+</ol>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
