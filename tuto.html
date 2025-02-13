@@ -277,6 +277,56 @@ Vous pouvez les créer de façon manuelle ou vous appuyer sur les commandes <cod
 <li><strong>Déclarer vos CRUD controllers</strong> dans votre <code>DashboardController</code> pour qu’ils apparaissent dans les menus (ou y accéder par URL directement).</li>
 <li><strong>Lancer votre serveur</strong> et accéder à votre interface d’administration via <code>/admin</code>.</li>
 </ol>
+<h2 id="actions-suivantes">Actions suivantes</h2>
+<ol>
+<li>
+<p><strong>Nettoyage</strong> : suppression du ElephantDashBoardController.php</p>
+</li>
+<li>
+<p><strong>Correction</strong> : config/routes/admin.yaml</p>
+<pre><code class="language-yaml"><span class="hljs-attr">admin:</span>
+  <span class="hljs-attr">path:</span> <span class="hljs-string">/admin</span>
+  <span class="hljs-attr">controller:</span> <span class="hljs-string">App\Controller\Admin\ElephantDashBoardController::index</span>
+</code></pre>
+<p>vers</p>
+<pre><code class="language-yaml"><span class="hljs-attr">admin:</span>
+  <span class="hljs-attr">path:</span> <span class="hljs-string">/admin</span>
+  <span class="hljs-attr">controller:</span> <span class="hljs-string">App\Controller\Admin\DashboardController::index</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Ajout</strong> : dans src/Controller/Admin/DashboardController.php</p>
+<pre><code class="language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configureMenuItems</span>(<span class="hljs-params"></span>): <span class="hljs-title">iterable</span>
+    </span>{
+        <span class="hljs-keyword">yield</span> <span class="hljs-title class_">MenuItem</span>::<span class="hljs-title function_ invoke__">linkToDashboard</span>(<span class="hljs-string">&#x27;Dashboard&#x27;</span>, <span class="hljs-string">&#x27;fa fa-home&#x27;</span>);
+        <span class="hljs-comment">// yield MenuItem::linkToCrud(&#x27;The Label&#x27;, &#x27;fas fa-list&#x27;, EntityClass::class);</span>
+    }
+</code></pre>
+<p>vers</p>
+<pre><code class="language-php">    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">configureMenuItems</span>(<span class="hljs-params"></span>): <span class="hljs-title">iterable</span>
+    </span>{
+        <span class="hljs-comment">// Lien vers le tableau de bord principal</span>
+        <span class="hljs-keyword">yield</span> <span class="hljs-title class_">MenuItem</span>::<span class="hljs-title function_ invoke__">linkToDashboard</span>(<span class="hljs-string">&#x27;Dashboard&#x27;</span>, <span class="hljs-string">&#x27;fa fa-home&#x27;</span>);
+
+        <span class="hljs-comment">// Lien vers la liste des &quot;Elephant&quot;</span>
+        <span class="hljs-keyword">yield</span> <span class="hljs-title class_">MenuItem</span>::<span class="hljs-title function_ invoke__">linkToCrud</span>(<span class="hljs-string">&#x27;Elephants&#x27;</span>, <span class="hljs-string">&#x27;fas fa-elephant&#x27;</span>, <span class="hljs-title class_">Elephant</span>::<span class="hljs-variable language_">class</span>);
+    }
+</code></pre>
+<p>ajout de</p>
+<pre><code class="language-php">    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">render</span>(<span class="hljs-string">&#x27;admin/elephant_dashboard.html.twig&#x27;</span>, []);
+</code></pre>
+<p>dans la méthode index</p>
+</li>
+<li>
+<p><strong>Création</strong> : de la template templates/admin/elephant_dashboard.html.twig</p>
+<pre><code class="language-twig"><span class="language-xml">    </span><span class="hljs-template-tag">{%</span> <span class="hljs-name">extends</span> <span class="hljs-string">&#x27;@EasyAdmin/page/content.html.twig&#x27;</span> <span class="hljs-template-tag">%}</span><span class="language-xml">
+
+    </span><span class="hljs-template-tag">{%</span> <span class="hljs-name">block</span> content <span class="hljs-template-tag">%}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Ici Nasira va gérer son troupeau d&#x27;éléphants !!!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    </span><span class="hljs-template-tag">{%</span> <span class="hljs-name">endblock</span> <span class="hljs-template-tag">%}</span><span class="language-xml">
+</span></code></pre>
+</li>
+</ol>
 
             <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
             

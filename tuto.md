@@ -162,3 +162,61 @@ Toutes ces personnalisations sont documentées sur le site officiel :
 4. **Créer les CRUD controllers** (héritant de `AbstractCrudController`) pour chacune de vos entités à gérer.
 5. **Déclarer vos CRUD controllers** dans votre `DashboardController` pour qu’ils apparaissent dans les menus (ou y accéder par URL directement).
 6. **Lancer votre serveur** et accéder à votre interface d’administration via `/admin`.
+
+
+
+## Actions suivantes
+
+1. **Nettoyage** : suppression du ElephantDashBoardController.php
+2. **Correction** : config/routes/admin.yaml
+
+    ```yaml
+    admin:
+      path: /admin
+      controller: App\Controller\Admin\ElephantDashBoardController::index
+    ```
+    vers
+
+    ```yaml
+    admin:
+      path: /admin
+      controller: App\Controller\Admin\DashboardController::index
+    ```
+3. **Ajout** : dans src/Controller/Admin/DashboardController.php
+   
+    ```php
+        public function configureMenuItems(): iterable
+        {
+            yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+            // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        }
+    ```
+    vers
+
+    ```php
+        public function configureMenuItems(): iterable
+        {
+            // Lien vers le tableau de bord principal
+            yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+    
+            // Lien vers la liste des "Elephant"
+            yield MenuItem::linkToCrud('Elephants', 'fas fa-elephant', Elephant::class);
+        }
+    ```
+
+    ajout de 
+
+    ```php
+        return $this->render('admin/elephant_dashboard.html.twig', []);
+    ```
+
+    dans la méthode index
+4. **Création** : de la template templates/admin/elephant_dashboard.html.twig
+
+    ```twig
+        {% extends '@EasyAdmin/page/content.html.twig' %}
+
+        {% block content %}
+            <h1>Ici Nasira va gérer son troupeau d'éléphants !!!</h1>
+        {% endblock %}
+    ```
