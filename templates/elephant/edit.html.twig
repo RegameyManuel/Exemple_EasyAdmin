@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Elephant{% endblock %}
+
+{% block body %}
+    <h1>Edit Elephant</h1>
+
+    {{ include('elephant/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_elephant_index') }}">back to list</a>
+
+    {{ include('elephant/_delete_form.html.twig') }}
+{% endblock %}

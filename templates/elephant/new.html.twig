@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Elephant{% endblock %}
+
+{% block body %}
+    <h1>Create new Elephant</h1>
+
+    {{ include('elephant/_form.html.twig') }}
+
+    <a href="{{ path('app_elephant_index') }}">back to list</a>
+{% endblock %}
